@@ -1,0 +1,127 @@
+﻿<Window x:Class="BoxPacker.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Box Packer" Width="Auto" Height="Auto" SizeToContent="WidthAndHeight"
+        MinHeight="400">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <Grid x:Name="MainContainer">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Grid
+                Margin="16, 16, 16, 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Text="Rectangle Packing"
+                           FontSize="24"
+                           VerticalAlignment="Center"
+                           FontWeight="Medium" />
+
+                <Button Grid.Column="1"
+                        Content="Import JSON"
+                        MinWidth="90"
+                        VerticalAlignment="Center"
+                        MinHeight="40"
+                        HorizontalAlignment="Right"
+                        Click="ImportJsonClicked"
+                        Margin="8,0,0,0" />
+            </Grid>
+
+            <StackPanel Grid.Row="1"
+                        Orientation="Horizontal"
+                        Margin="16, 16, 16, 0">
+                <TextBlock Text="Width: "
+                           VerticalAlignment="Center"
+                           />
+
+                <TextBox x:Name="RectangleWidthValueTextBox"
+                         PreviewTextInput="RectangleInputTextBox_OnPreviewTextInput"
+                         Width="50"
+                         MinHeight="30"
+                         FontSize="18"
+                         VerticalContentAlignment="Center"
+                         VerticalAlignment="Center"
+                         Margin="8,0,0,0" />
+
+                <TextBlock Text="Height: "
+                           VerticalAlignment="Center"
+                           Margin="16,0,0,0" />
+
+                <TextBox x:Name="RectangleHeightValueTextBox"
+                         PreviewTextInput="RectangleInputTextBox_OnPreviewTextInput"
+                         Width="50"
+                         VerticalAlignment="Center"
+                         VerticalContentAlignment="Center"
+                         FontSize="18"
+                         MinHeight="30"
+                         Margin="8,0,0,0" />
+
+                <Button Content="Add Rectangle" 
+                        MinWidth="100"
+                        MinHeight="30"
+                        Click="AddRectangleClicked"
+                        Margin="8,0,0,0" />
+                <Button Content="Clear" 
+                        MinWidth="100"
+                        MinHeight="30"
+                        Click="ClearClicked"
+                        Margin="8,0,0,0" />
+            </StackPanel>
+
+            <WrapPanel Grid.Row="2"
+                       MaxWidth="500"
+                       Margin="16, 16, 16, 0"
+                       HorizontalAlignment="Left">
+                <ItemsControl x:Name="BoxesItemsControl" HorizontalAlignment="Left" HorizontalContentAlignment="Left">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid VerticalAlignment="Top" HorizontalAlignment="Left">
+                                <Rectangle Width="{Binding Width}" Height="{Binding Height}" Fill="{Binding ColorHex}" />
+                                <TextBlock VerticalAlignment="Bottom" HorizontalAlignment="Right" Text="{Binding Id}" FontSize="12"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+            </WrapPanel>
+
+            <StackPanel Grid.Row="3"
+                        Margin="16, 16, 16, 0"
+                        Orientation="Horizontal">
+                <Button
+                    Content="Generate"
+                    MinWidth="140"
+                    MinHeight="40"
+                    HorizontalAlignment="Left"
+                    Click="GenerateClicked" />
+
+                <Button
+                    Content="Generate Random"
+                    MinWidth="140"
+                    Margin="8,0,0,0"
+                    MinHeight="40"
+                    HorizontalAlignment="Left"
+                    Click="GenerateRandomClicked" />
+
+            </StackPanel>
+
+            <Canvas Grid.Row="4" x:Name="Canvas"
+                    Margin="16, 16, 16, 16" />
+        </Grid>
+    </ScrollViewer>
+</Window>

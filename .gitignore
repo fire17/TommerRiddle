@@ -1,0 +1,11 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/BoxPacker/.idea/.idea.BoxPacker
+/BoxPacker/.vs/BoxPacker/v16
+/BoxPacker/bin/Debug
+/BoxPacker/obj/Debug
+/BoxPacker/packages/Newtonsoft.Json.12.0.3
+/BoxPacker.Core/bin/Debug/netstandard2.0
+/BoxPacker.Core/obj
