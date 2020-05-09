@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         Title="Box Packer" Width="Auto" Height="Auto" SizeToContent="WidthAndHeight"
-        MinHeight="400">
+        WindowStartupLocation="CenterScreen"
+        MinHeight="400"
+        MinWidth="600">
     <ScrollViewer VerticalScrollBarVisibility="Auto">
         <Grid x:Name="MainContainer">
             <Grid.RowDefinitions>
@@ -21,6 +23,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Text="Rectangle Packing"
@@ -36,6 +39,11 @@
                         HorizontalAlignment="Right"
                         Click="ImportJsonClicked"
                         Margin="8,0,0,0" />
+                <Button  Grid.Column="2" Content="Clear" 
+                         MinWidth="100"
+                         MinHeight="30"
+                         Click="ClearClicked"
+                         Margin="8,0,0,0" />
             </Grid>
 
             <StackPanel Grid.Row="1"
@@ -43,19 +51,22 @@
                         Margin="16, 16, 16, 0">
                 <TextBlock Text="Width: "
                            VerticalAlignment="Center"
-                           />
+                           Visibility="Collapsed"
+                />
 
                 <TextBox x:Name="RectangleWidthValueTextBox"
                          PreviewTextInput="RectangleInputTextBox_OnPreviewTextInput"
                          Width="50"
                          MinHeight="30"
                          FontSize="18"
+                         Visibility="Collapsed"
                          VerticalContentAlignment="Center"
                          VerticalAlignment="Center"
                          Margin="8,0,0,0" />
 
                 <TextBlock Text="Height: "
                            VerticalAlignment="Center"
+                           Visibility="Collapsed"
                            Margin="16,0,0,0" />
 
                 <TextBox x:Name="RectangleHeightValueTextBox"
@@ -64,18 +75,15 @@
                          VerticalAlignment="Center"
                          VerticalContentAlignment="Center"
                          FontSize="18"
+                         Visibility="Collapsed"
                          MinHeight="30"
                          Margin="8,0,0,0" />
 
                 <Button Content="Add Rectangle" 
                         MinWidth="100"
                         MinHeight="30"
+                        Visibility="Collapsed"
                         Click="AddRectangleClicked"
-                        Margin="8,0,0,0" />
-                <Button Content="Clear" 
-                        MinWidth="100"
-                        MinHeight="30"
-                        Click="ClearClicked"
                         Margin="8,0,0,0" />
             </StackPanel>
 
@@ -88,7 +96,7 @@
                         <DataTemplate>
                             <Grid VerticalAlignment="Top" HorizontalAlignment="Left">
                                 <Rectangle Width="{Binding Width}" Height="{Binding Height}" Fill="{Binding ColorHex}" />
-                                <TextBlock VerticalAlignment="Bottom" HorizontalAlignment="Right" Text="{Binding Id}" FontSize="12"/>
+                                <TextBlock VerticalAlignment="Bottom" HorizontalAlignment="Right" Text="{Binding Id}" FontSize="8" Foreground="White"/>
                             </Grid>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
@@ -120,8 +128,17 @@
 
             </StackPanel>
 
-            <Canvas Grid.Row="4" x:Name="Canvas"
-                    Margin="16, 16, 16, 16" />
+            <Border
+                BorderThickness="2"
+                BorderBrush="Black"
+                Background="LightGray"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Grid.Row="4"
+                 Margin="16, 16, 16, 16" >
+                <Canvas  x:Name="Canvas"
+                        />
+            </Border>
         </Grid>
     </ScrollViewer>
 </Window>

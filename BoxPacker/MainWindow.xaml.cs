@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -28,7 +29,7 @@ namespace BoxPacker
     public partial class MainWindow : Window
     {
         private readonly Packer _packer = new Packer();
-
+        private CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
         private readonly ObservableCollection<Box> _boxes = new ObservableCollection<Box>();
 
         public MainWindow()
@@ -54,7 +55,7 @@ namespace BoxPacker
                 MessageBox.Show(this, "No boxes");
                 return;
             }
-
+            _cancellationTokenSource = new CancellationTokenSource();
             Canvas.Children.Clear();
 
             var potPack = _packer.Pack(boxes.ToList());
@@ -66,10 +67,10 @@ namespace BoxPacker
             Canvas.Height = canvasHeight;
             Canvas.LayoutTransform = new ScaleTransform
             {
-                ScaleX = 2,
-                ScaleY = 2
+                ScaleX = 3,
+                ScaleY = 3
             };
-
+            
             foreach (var box in boxes)
             {
                 var grid = new Grid();
@@ -100,6 +101,11 @@ namespace BoxPacker
                 if (!box.Equals(boxes.Last()))
                 {
                     await Task.Delay(10);
+                }
+
+                if (_cancellationTokenSource.IsCancellationRequested)
+                {
+                    break;
                 }
             }
         }
@@ -167,7 +173,7 @@ namespace BoxPacker
                         });
                     }
 
-                    _boxes.Clear();
+                    Clear();
                     boxes.ForEach(box => _boxes.Add(box));
                 }
                 catch (Exception exception)
@@ -180,6 +186,12 @@ namespace BoxPacker
 
         private void ClearClicked(object sender, RoutedEventArgs e)
         {
+            Clear();
+        }
+
+        private void Clear()
+        {
+            _cancellationTokenSource.Cancel();
             _boxes.Clear();
             Canvas.Children.Clear();
             RectangleWidthValueTextBox.Text = "";

@@ -1,0 +1,37 @@
+[
+	{
+		"id": 0,
+		"width": 30,
+		"height": 29
+	},
+	{
+		"id": 1,
+		"width": 20,
+		"height": 18
+	},
+	{
+		"id": 2,
+		"width": 17,
+		"height": 28
+	},
+	{
+		"id": 3,
+		"width": 20,
+		"height": 13
+	},
+	{
+		"id": 4,
+		"width": 17,
+		"height": 11
+	},
+	{
+		"id": 5,
+		"width": 30,
+		"height": 4
+	},
+	{
+		"id": 7,
+		"width": 27,
+		"height": 27
+	}
+]
